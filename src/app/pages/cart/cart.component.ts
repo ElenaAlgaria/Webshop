@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { PrimaryButtonComponent } from '../../components/primary-button/primary-button.component';
 import { CartItemComponent } from "./cart-item/cart-item.component";
+import { OrderSummaryComponent } from "./order-summary/order-summary.component";
 
 // create cart items list using at for loop
 //create remove button
@@ -11,15 +12,15 @@ import { CartItemComponent } from "./cart-item/cart-item.component";
 
 @Component({
   selector: 'app-cart',
-  imports: [PrimaryButtonComponent, CartItemComponent],
+  imports: [PrimaryButtonComponent, CartItemComponent, OrderSummaryComponent],
   template: `
     
   <div class="p-6 flex flex-col gap-4">
-    <h2 class="text-2xl">Shopping cart</h2>
 
     @for (cartItem of cartService.cart(); track cartItem.id) {
-          <app-cart-item [item]="cartItem"/>
-        }
+      <app-cart-item [item]="cartItem"/>
+    }
+    <app-order-summary class="self-center"></app-order-summary>
   </div>
       
 
