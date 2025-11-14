@@ -1,15 +1,15 @@
 import { Component, computed, inject } from '@angular/core';
 import { CartService } from '../../../services/cart.service';
-import { PrimaryButtonComponent } from '../../../components/primary-button/primary-button.component';
+import { PrimaryButtonComponent } from '../../../components/buttons/primary-button/primary-button.component';
 import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-order-summary',
   imports: [PrimaryButtonComponent, NgFor],
   template: `
-    <div class="bg-slate-100 p-6 mt-5 w-4xl rounded-xl shadow-xl border">
+    <div class="bg-white p-6 mt-5 w-4xl rounded-xl border border-gray-300">
       <div class="flex flex-col gap-4">
-        <h2 class="text-2xl">Order Summary</h2>
+        <h2 class="text-3xl font-bold">Order Summary</h2>
 
         <div class="flex flex-col gap-1">
           <span *ngFor="let price of calculateTotal" class="text-lg flex-col">{{

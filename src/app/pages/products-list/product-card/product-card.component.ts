@@ -1,6 +1,6 @@
 import { Component, inject, input } from '@angular/core';
 import { Product } from '../../../models/products.model';
-import { PrimaryButtonComponent } from "../../../components/primary-button/primary-button.component";
+import { PrimaryButtonComponent } from "../../../components/buttons/primary-button/primary-button.component";
 import { CartService } from '../../../services/cart.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { CartService } from '../../../services/cart.service';
   imports: [PrimaryButtonComponent],
   template: `
     <div
-      class="bg-white border rounded-xl p-6 flex-col gap-6 relative"
+      class="bg-white drop-shadow-sm rounded-xl p-6 flex-col gap-6 relative"
     >
         <img
           [src]="product().image"

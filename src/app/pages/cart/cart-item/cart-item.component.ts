@@ -7,15 +7,15 @@ import { CartService } from '../../../services/cart.service';
   imports: [],
   template: `
     <div
-      class="bg-white shadow-md border rounded-xl p-6 flex gap-4 items-center"
+      class="bg-white border border-gray-400 rounded-xl p-6 flex gap-4 items-center"
     >
-      <img [src]="item().image" class="w-[80px] h-[80px] object-contain" />
+      <img [src]="item().image" class="w-[100px] h-[100px] object-contain" />
       <div class="flex flex-col">
-        <span class="text-lg font-bold">{{ item().title }}</span>
-        <span class="text-base">{{ '$' + item().price }}</span>
+        <span class="text-2xl font-bold">{{ item().title }}</span>
+        <span class="text-xl">{{ '$' + item().price }}</span>
       </div>
       <div class="flex-1"></div>
-      <button (click)="cartService.removeFromCart(item().id)" class="p-2">
+      <button (click)="cartService.removeFromCart(item().id)" class="cursor-pointer p-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

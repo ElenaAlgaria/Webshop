@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CartService } from '../../services/cart.service';
-import { PrimaryButtonComponent } from '../../components/primary-button/primary-button.component';
+import { PrimaryButtonComponent } from '../../components/buttons/primary-button/primary-button.component';
 import { CartItemComponent } from "./cart-item/cart-item.component";
 import { OrderSummaryComponent } from "./order-summary/order-summary.component";
 
@@ -15,7 +15,7 @@ import { OrderSummaryComponent } from "./order-summary/order-summary.component";
   imports: [PrimaryButtonComponent, CartItemComponent, OrderSummaryComponent],
   template: `
     
-  <div class="p-6 flex flex-col gap-4">
+  <div class="px-4 sm:px-8 lg:px-40 py-6 flex flex-col gap-4">
 
     @for (cartItem of cartService.cart(); track cartItem.id) {
       <app-cart-item [item]="cartItem"/>
