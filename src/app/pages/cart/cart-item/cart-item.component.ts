@@ -1,5 +1,5 @@
 import { Component, inject, input } from '@angular/core';
-import { Product } from '../../../models/products.model';
+import { Product } from '../../../models/product';
 import { CartService } from '../../../services/cart.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { CartService } from '../../../services/cart.service';
   imports: [],
   template: `
     <div
-      class="bg-white border border-gray-400 rounded-xl p-6 flex gap-4 items-center"
+      class="bg-white drop-shadow-sm rounded-xl p-6 flex gap-4 items-center"
     >
       <img [src]="item().image" class="w-[100px] h-[100px] object-contain" />
       <div class="flex flex-col">
