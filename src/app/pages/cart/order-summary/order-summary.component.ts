@@ -37,7 +37,6 @@ export class OrderSummaryComponent {
     return this.cartService.cart().map((item) => item.price);
   }
 
-  //  fb = inject(NonNullableFormBuilder);
 
   md = inject(MatDialog);
 

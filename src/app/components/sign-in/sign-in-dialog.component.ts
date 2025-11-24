@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatDialogClose } from '@angular/material/dialog';
-import { signalStore, patchState } from '@ngrx/signals';
+
 
 import {
   NonNullableFormBuilder,
@@ -15,7 +15,8 @@ import {
 } from '@angular/material/form-field';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatInput } from '@angular/material/input';
-import { SignInParams } from '../../models/user';
+import { SignInParams, User } from '../../models/user';
+import { AppStore } from '../../app.store';
 
 @Component({
   selector: 'app-sign-in',
@@ -48,7 +49,7 @@ import { SignInParams } from '../../models/user';
           <mat-icon>close</mat-icon>
         </button>
       </div>
-      <form [formGroup]="signInForm" (ngSubmit)="signIn()">
+      <form [formGroup]="signInForm" (ngSubmit)="appstore.signin()">
         <mat-form-field class="mb-2 w-full">
           <input
             matInput
@@ -80,7 +81,7 @@ import { SignInParams } from '../../models/user';
           </button>
         </mat-form-field>
 
-        <button type="submit" mat-flat-button color="primary" class="w-full">
+        <button type="button" (click)="appstore.signin()" mat-flat-button color="primary" class="w-full">
           Sign In
         </button>
       </form>
@@ -89,10 +90,9 @@ import { SignInParams } from '../../models/user';
   styles: ``,
 })
 export class SignInComponent {
+  appstore = inject(AppStore);
 
-  store = signalStore({
-    user: undefined
-  })
+  user = signal<User | undefined>(undefined);
 
   fb = inject(NonNullableFormBuilder);
 
@@ -103,22 +103,19 @@ export class SignInComponent {
     password: ['test123', Validators.required],
   });
 
-  signIn() {
-    if (!this.signInForm.valid) {
-      this.signInForm.markAllAsTouched();
-      return;
-    }
-    const { email, password } = this.signInForm.value;
+  // signIn() {
+  //   if (!this.signInForm.valid) {
+  //     this.signInForm.markAllAsTouched();
+  //     return;
+  //   }
+  //  const { email, password } = this.signInForm.value as { email: string; password: string };
 
-    // this.store.signInStore({email, password} as SignInParams);
-    patchState(this.store,{
-      user:{
-        id:'1',
-        email,
-        name:'Jane Doe',
-        imageUrl:'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80'
-      }
-    }
-    )
-  }
+  //   this.user.set({
+  //       id:'1',
+  //       email,
+  //       name:'Jane Doe',
+  //       imageUrl:'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80'
+  //     });
+    
+  // }
 }
