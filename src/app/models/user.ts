@@ -1,14 +1,8 @@
-export type User = {
-id: string;
-email: string;
-name: string;
-imageUrl: string;
-};
-
-export type SignUpParams = {
-    name: string;
+export interface User{
+    uid?: string;
     email: string;
-    password: string;
-};
+    name: string;
+    photoUrl?: string;
+    role?: string;
+}
 
-export type SignInParams = Omit<SignUpParams, 'name'>;

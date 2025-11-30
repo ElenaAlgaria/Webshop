@@ -1,17 +1,26 @@
 import { Component, inject } from '@angular/core';
 import { PrimaryButtonComponent } from '../buttons/primary-button/primary-button.component';
-import { CartService } from '../../services/cart.service';
 import { RouterLink } from '@angular/router';
 import { SecondaryButtonComponent } from '../buttons/primary-button/secondary-button.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import { SignInComponent } from '../sign-in/sign-in-dialog.component';
 import { AppStore } from '../../app.store';
-import { MatIcon } from "@angular/material/icon";
+import { MatIcon } from '@angular/material/icon';
+import { CartService } from '../../shared/services/cart.service';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-header',
-  imports: [PrimaryButtonComponent, RouterLink, SecondaryButtonComponent, MatMenu, MatMenuTrigger, MatIcon],
+  imports: [
+    PrimaryButtonComponent,
+    RouterLink,
+    SecondaryButtonComponent,
+    MatMenu,
+    MatMenuTrigger,
+    MatIcon,
+    MatDividerModule,
+  ],
   template: `
     <div
       class="bg-slate-100 px-6 py-3 shadow-md flex justify-between items-center"
@@ -47,28 +56,36 @@ import { MatIcon } from "@angular/material/icon";
           >
         </div>
 
-     
+        @if (appstore.user(); as user) {
+
+        <button mat-icon-button [mat-menu-trigger-for]="profileMenu">
+          <img
+            [src]="appstore.user()?.photoUrl"
+            class="rounded-full w-8 h-8 object-cover"
+          />
+        </button>
+        <mat-menu #profileMenu="matMenu" xPosition="before">
+          <div class="flex flex-col px-3 min-w-[200px]">
+            <span class="text-sm font-medium">{{ user.name }}</span>
+            <span class="text-xs text-gray-500">{{ user.email }}</span>
+          </div>
+          <mat-divider></mat-divider>
+          <button class="min-h-8" mat-menu-item (click)="appstore.signOut()">
+            <span class="px-3 flex items-center space-x-2">
+            <mat-icon>logout</mat-icon> 
+              <span>Sign out</span>
+            </span>
+          </button>
+        </mat-menu>
+        } @else{
         <app-secondary-button
           label="Sign in"
           class="w-max"
           (btnClicked)="signIn()"
         ></app-secondary-button>
         <app-primary-button label="Sign up" class="w-max"></app-primary-button>
-        
-          
 
-        @if (appstore.user(); as user) {
-          <button mat-icon-button [mat-menu-trigger-for]="profileMenu">
-            <img [src]="user.imageUrl" class="rounded-full w-8 h-8 object-cover" />
-          </button>
-          <mat-menu #profileMenu="matMenu">
-            <button mat-menu-item (click)="appstore.signout()">
-             <mat-icon>logout</mat-icon>  
-            Sign out</button>
-           
-          </mat-menu>
-          }
-
+        }
       </div>
     </div>
   `,
