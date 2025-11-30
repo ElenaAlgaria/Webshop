@@ -1,9 +1,9 @@
 import { Component, computed, inject } from '@angular/core';
-import { CartService } from '../../../services/cart.service';
 import { PrimaryButtonComponent } from '../../../components/buttons/primary-button/primary-button.component';
 import { NgFor } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { SignInComponent } from '../../../components/sign-in/sign-in-dialog.component';
+import { CartService } from '../../../shared/services/cart.service';
 
 @Component({
   selector: 'app-order-summary',

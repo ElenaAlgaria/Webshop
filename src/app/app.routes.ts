@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
 import { ProductsListComponent } from './pages/products-list/products-list.component';
 import { CartComponent } from './pages/cart/cart.component';
-import { LayoutComponent } from './shared/components/layout/layout.component';
 import { SignInComponent } from './components/sign-in/sign-in-dialog.component';
 import { redirectHomeIfAuthenticated, redirectLoginIfNotAuthenticated } from './guards/auth.guards';
+import { LayoutComponent } from './shared/components/layout/layout.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },

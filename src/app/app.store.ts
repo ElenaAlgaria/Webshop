@@ -1,31 +1,25 @@
-import { inject } from '@angular/core';
+import { computed, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
+import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
+import { AuthService } from './shared/services/auth.service';
 
-export interface User{
-    email: string;
-    name: string;
-    imageUrl: string;
-}
+type AppState = {};
 
-type AppState = {
-    user: User | undefined;
-};
-
-const initialState: AppState = {
-    user: undefined,
-};
+const initialState: AppState = {};
 
 export const AppStore = signalStore(
     {providedIn: 'root'},
     withState(initialState),
-    withMethods((store, router = inject(Router)) => ({
-        signin:() =>{
-            patchState(store,{user: {email:"test@test.com", name:"Jane Doe", imageUrl:"https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"}});
+    withComputed((store, authService = inject(AuthService)) =>({
+        user: computed(()=> authService.user())
+    })),
+    withMethods((store, router = inject(Router), authService = inject(AuthService)) => ({
+        signIn:async (email: string, password: string) =>{
+            await authService.signIn(email, password);
             router.navigate(["/home"]);
         },
-        signout:() =>{
-        patchState(store,{user: undefined});
+        signOut:async () =>{
+        await authService.signOut();
         router.navigate(["/sign-in"]);
         }
     })) 
