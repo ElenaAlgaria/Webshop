@@ -9,7 +9,7 @@ import { AppStore } from '../../app.store';
 import { MatIcon } from '@angular/material/icon';
 import { CartService } from '../../shared/services/cart.service';
 import { MatDividerModule } from '@angular/material/divider';
-
+import { MatIconButton, MatButton } from '@angular/material/button';
 @Component({
   selector: 'app-header',
   imports: [
@@ -20,7 +20,9 @@ import { MatDividerModule } from '@angular/material/divider';
     MatMenuTrigger,
     MatIcon,
     MatDividerModule,
-  ],
+    MatIconButton,
+    MatButton
+],
   template: `
     <div
       class="bg-slate-100 px-6 py-3 shadow-md flex justify-between items-center"
@@ -34,7 +36,7 @@ import { MatDividerModule } from '@angular/material/divider';
       </button>
       <div flex="1" class="flex justify-items-start items-center gap-4">
         <div class="relative inline-block">
-          <button routerLink="/cart" class="cursor-pointer">
+          <button mat-icon-button class="large-icon-btn" routerLink="/cart" >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -55,13 +57,14 @@ import { MatDividerModule } from '@angular/material/divider';
             >{{ cartService.cart().length }}</span
           >
         </div>
-
+      
+    
         @if (appstore.user(); as user) {
 
-        <button mat-icon-button [mat-menu-trigger-for]="profileMenu">
+        <button mat-icon-button class="large-icon-btn" [mat-menu-trigger-for]="profileMenu">
           <img
             [src]="appstore.user()?.photoUrl"
-            class="rounded-full w-8 h-8 object-cover"
+            class=" rounded-full object-cover"
           />
         </button>
         <mat-menu #profileMenu="matMenu" xPosition="before">
@@ -70,7 +73,7 @@ import { MatDividerModule } from '@angular/material/divider';
             <span class="text-xs text-gray-500">{{ user.email }}</span>
           </div>
           <mat-divider></mat-divider>
-          <button class="min-h-8" mat-menu-item (click)="appstore.signOut()">
+          <button class="min-h-8 cursor-pointer" mat-menu-item (click)="appstore.signOut()">
             <span class="px-3 flex items-center space-x-2">
             <mat-icon>logout</mat-icon> 
               <span>Sign out</span>

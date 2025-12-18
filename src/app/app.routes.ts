@@ -4,6 +4,7 @@ import { CartComponent } from './pages/cart/cart.component';
 import { SignInComponent } from './components/sign-in/sign-in-dialog.component';
 import { redirectHomeIfAuthenticated, redirectLoginIfNotAuthenticated } from './guards/auth.guards';
 import { LayoutComponent } from './shared/components/layout/layout.component';
+import { SignUpDialogComponent } from './components/sign-up-dialog/sign-up-dialog.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -26,7 +27,12 @@ export const routes: Routes = [
         {
         path: 'cart',
         component: CartComponent,
+      },
+      {
+        path: 'sign-up',
+        component: SignUpDialogComponent
       }
+
     ],
   },
 ];
