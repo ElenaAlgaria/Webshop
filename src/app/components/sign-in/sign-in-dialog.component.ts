@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
-import { MatDialogClose } from '@angular/material/dialog';
+import { MatDialog, MatDialogClose, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 
 import {
@@ -17,6 +17,8 @@ import {
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatInput } from '@angular/material/input';
 import { AppStore } from '../../app.store';
+import { SignUpDialogComponent } from '../sign-up-dialog/sign-up-dialog.component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -33,7 +35,9 @@ import { AppStore } from '../../app.store';
     MatButton,
     MatError,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+    MatDialogModule,
+  
   ],
   template: `
     <div class="p-8 max-w-[400px] flex flex-col">
@@ -102,6 +106,10 @@ import { AppStore } from '../../app.store';
           Sign In
         </button>
       </form>
+      <p class="text-sm text-gray-500 mt-2 text-center">
+        Don't have an account?
+        <a class="text-blue-600 cursor-pointer" (click)="openSignUpDialog()">Sign Up</a>
+      </p>
     </div>
   `,
   styles: ``,
@@ -148,4 +156,16 @@ export class SignInComponent {
       this.errorMessage.set(message);
     }
   }
+  router = inject(Router)
+  matDialog = inject(MatDialog);
+  // dialogRef = inject(MatDialogRef<SignInComponent>);
+
+  openSignUpDialog() {
+    // this.dialogRef.close();
+      // this.matDialog.open(SignUpDialogComponent, {
+      //   disableClose: true
+      //  });
+      console.log("Navigating to sign-up");
+        this.router.navigate(["/sign-up"]);
+}
 }
